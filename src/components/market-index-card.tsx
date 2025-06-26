@@ -22,6 +22,7 @@ import { cn } from "@/lib/utils";
 
 interface MarketIndexCardProps {
   data: MarketData;
+  className?: string;
 }
 
 const PerformanceIndicator = ({ value }: { value: number }) => {
@@ -40,7 +41,7 @@ const PerformanceIndicator = ({ value }: { value: number }) => {
   );
 };
 
-export function MarketIndexCard({ data }: MarketIndexCardProps) {
+export function MarketIndexCard({ data, className }: MarketIndexCardProps) {
   const chartConfig = {
     value: {
       label: "Index",
@@ -49,7 +50,7 @@ export function MarketIndexCard({ data }: MarketIndexCardProps) {
   } satisfies ChartConfig;
 
   return (
-    <Card>
+    <Card className={cn("flex flex-col", className)}>
       <CardHeader>
         <div className="flex items-start justify-between">
           <CardTitle>Pokemon TCG Market Index</CardTitle>
@@ -57,14 +58,14 @@ export function MarketIndexCard({ data }: MarketIndexCardProps) {
         </div>
         <CardDescription>Overall Performance (Last 30 Days)</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col flex-grow">
         <div className="text-4xl font-bold font-headline">
           {data.indexValue.toLocaleString("en-US", {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}
         </div>
-        <div className="h-[120px] w-full mt-4">
+        <div className="mt-4 flex-grow w-full">
           <ChartContainer config={chartConfig}>
             <LineChart
               accessibilityLayer

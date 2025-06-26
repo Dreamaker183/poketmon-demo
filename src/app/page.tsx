@@ -61,7 +61,7 @@ export default function Home() {
       <main className="flex flex-1 flex-col gap-4 p-4 md:gap-8 md:p-8">
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
           <div className="lg:col-span-4">
-            <MarketIndexCard data={marketData} />
+            <MarketIndexCard data={marketData} className="h-full" />
           </div>
           <div className="lg:col-span-3 grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
             <TrendingCards cards={trendingCards} />
