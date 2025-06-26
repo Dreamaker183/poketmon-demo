@@ -1,7 +1,8 @@
+
 "use client";
 
 import { TrendingDown, TrendingUp } from "lucide-react";
-import { Line, LineChart, XAxis } from "recharts";
+import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from "recharts";
 
 import {
   Card,
@@ -49,6 +50,11 @@ export function MarketIndexCard({ data, className }: MarketIndexCardProps) {
     },
   } satisfies ChartConfig;
 
+  const domain = [
+    Math.min(...data.trend.map(d => d.value)) * 0.95,
+    Math.max(...data.trend.map(d => d.value)) * 1.05
+  ];
+
   return (
     <Card className={cn("flex flex-col", className)}>
       <CardHeader>
@@ -67,36 +73,64 @@ export function MarketIndexCard({ data, className }: MarketIndexCardProps) {
         </div>
         <div className="mt-4 flex-grow w-full">
           <ChartContainer config={chartConfig}>
-            <LineChart
+            <AreaChart
               accessibilityLayer
               data={data.trend}
               margin={{ top: 5, right: 10, left: 10, bottom: 0 }}
             >
               <defs>
                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                    <stop offset="5%" stopColor="var(--color-value)" stopOpacity={0.4}/>
+                    <stop offset="95%" stopColor="var(--color-value)" stopOpacity={0}/>
                   </linearGradient>
               </defs>
+              <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="hsl(var(--border))" />
               <XAxis
                 dataKey="name"
                 tickLine={false}
                 axisLine={false}
                 tickMargin={8}
-                tick={{ fontSize: 12 }}
+                tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }}
+                interval="preserveStartEnd"
+              />
+               <YAxis 
+                domain={domain}
+                orientation="right"
+                tickFormatter={(value) => `${typeof value === 'number' ? value.toLocaleString("en-US", { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }) : ''}`}
+                tick={{ fontSize: 12, fill: 'hsl(var(--muted-foreground))' }} 
+                tickLine={false} 
+                axisLine={false}
+                width={70}
               />
               <ChartTooltip
-                cursor={false}
-                content={<ChartTooltipContent indicator="line" hideLabel />}
+                cursor={{fill: 'hsla(var(--muted-foreground), 0.1)'}}
+                content={
+                    <ChartTooltipContent 
+                        indicator="line" 
+                        formatter={(value, name, item) => (
+                            <>
+                                <div className="font-bold">{item.payload.name}</div>
+                                <div className="text-sm">
+                                    <span>Index:</span>
+                                    <span className="font-mono ml-2 font-medium">
+                                        {typeof value === 'number' && value.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                    </span>
+                                </div>
+                            </>
+                        )}
+                        hideLabel
+                    />
+                }
               />
-              <Line
+              <Area
                 dataKey="value"
                 type="monotone"
                 stroke="var(--color-value)"
                 strokeWidth={2}
-                dot={false}
+                fillOpacity={1}
+                fill="url(#colorValue)"
               />
-            </LineChart>
+            </AreaChart>
           </ChartContainer>
         </div>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
