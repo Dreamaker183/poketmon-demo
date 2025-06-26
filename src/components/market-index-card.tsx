@@ -1,7 +1,8 @@
 "use client";
 
-import { TrendingUp, TrendingDown } from "lucide-react";
-import { Line, LineChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
+import { TrendingDown, TrendingUp } from "lucide-react";
+import { Line, LineChart, XAxis } from "recharts";
+
 import {
   Card,
   CardContent,
@@ -10,7 +11,12 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { ChartTooltipContent } from "@/components/ui/chart";
+import {
+  ChartContainer,
+  ChartTooltip,
+  ChartTooltipContent,
+  type ChartConfig,
+} from "@/components/ui/chart";
 import type { MarketData } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -35,6 +41,13 @@ const PerformanceIndicator = ({ value }: { value: number }) => {
 };
 
 export function MarketIndexCard({ data }: MarketIndexCardProps) {
+  const chartConfig = {
+    value: {
+      label: "Index",
+      color: "hsl(var(--primary))",
+    },
+  } satisfies ChartConfig;
+
   return (
     <Card>
       <CardHeader>
@@ -52,28 +65,38 @@ export function MarketIndexCard({ data }: MarketIndexCardProps) {
           })}
         </div>
         <div className="h-[120px] w-full mt-4">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={data.trend} margin={{ top: 5, right: 10, left: 10, bottom: 0 }}>
+          <ChartContainer config={chartConfig}>
+            <LineChart
+              accessibilityLayer
+              data={data.trend}
+              margin={{ top: 5, right: 10, left: 10, bottom: 0 }}
+            >
               <defs>
                  <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
                     <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8}/>
                     <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
                   </linearGradient>
               </defs>
-              <XAxis dataKey="name" tickLine={false} axisLine={false} tickMargin={8} tick={{ fontSize: 12 }} />
-              <Tooltip
+              <XAxis
+                dataKey="name"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={8}
+                tick={{ fontSize: 12 }}
+              />
+              <ChartTooltip
                 cursor={false}
                 content={<ChartTooltipContent indicator="line" hideLabel />}
               />
               <Line
                 dataKey="value"
                 type="monotone"
-                stroke="hsl(var(--primary))"
+                stroke="var(--color-value)"
                 strokeWidth={2}
                 dot={false}
               />
             </LineChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </div>
         <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
             {data.regional.map((region) => (
