@@ -21,7 +21,7 @@ export function TopGainers({ cards }: TopGainersProps) {
             <li key={card.id}>
               <Link href={`/cards/${card.id}`} className="flex items-center gap-4 group">
                 <Avatar className="h-12 w-12 rounded-md">
-                  <AvatarImage src={card.image} alt={card.name} data-ai-hint="pokemon card" />
+                  <AvatarImage src={card.image} alt={card.name} data-ai-hint={`${card.name} pokemon`} />
                   <AvatarFallback>{card.name.charAt(0)}</AvatarFallback>
                 </Avatar>
                 <div className="flex-1">

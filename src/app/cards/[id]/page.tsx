@@ -38,7 +38,7 @@ export default function CardDetailPage({ params }: { params: { id: string } }) {
               width={375}
               height={525}
               className="rounded-lg shadow-lg"
-              data-ai-hint="mewtwo pokemon card"
+              data-ai-hint={`${name} pokemon card`}
             />
           </div>
           <div className="lg:col-span-2 space-y-8">

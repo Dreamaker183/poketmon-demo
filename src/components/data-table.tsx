@@ -29,7 +29,7 @@ type SortKey = keyof CardData;
 const getGradeBadgeClass = (grade: number) => {
   if (grade >= 10) return "bg-[hsl(var(--chart-1))] text-primary-foreground border-transparent"
   if (grade >= 9) return "bg-[hsl(var(--chart-2))] text-primary-foreground border-transparent"
-  if (grade >= 8) return "bg-[hsl(var(--chart-4))] text-primary-foreground border-transparent"
+  if (grade >= 8) return "bg-[hsl(var(--chart-3))] text-primary-foreground border-transparent"
   if (grade >= 7) return "bg-destructive text-destructive-foreground border-transparent"
   return "bg-secondary text-secondary-foreground"
 }
@@ -104,7 +104,7 @@ export function CardDataTable({ data }: CardDataTableProps) {
                           width={40}
                           height={56}
                           className="rounded-sm"
-                          data-ai-hint="pokemon card"
+                          data-ai-hint={`${card.name} pokemon`}
                         />
                         <div>
                           <p className="font-medium">{card.name}</p>

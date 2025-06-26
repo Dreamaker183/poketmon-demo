@@ -27,7 +27,7 @@ export function TrendingCards({ cards }: TrendingCardsProps) {
                   width={150}
                   height={210}
                   className="rounded-lg shadow-md transition-transform group-hover:scale-105"
-                  data-ai-hint="pokemon card"
+                  data-ai-hint={`${card.name} pokemon`}
                 />
                 <div className="absolute top-2 right-2 p-1 rounded-full bg-background/80">
                   {isPositive ? (

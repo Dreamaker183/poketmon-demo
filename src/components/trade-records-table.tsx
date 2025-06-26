@@ -107,7 +107,7 @@ export function TradeRecordsTable({ records }: TradeRecordsTableProps) {
         </Table>
       </CardContent>
       <CardFooter className="justify-center pt-6">
-        <Button>View More Market Data</Button>
+        <Button variant="outline">View More Market Data</Button>
       </CardFooter>
     </Card>
   )
