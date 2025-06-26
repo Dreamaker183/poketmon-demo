@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import Image from "next/image";
-import { notFound } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { Header } from "@/components/header";
 import { GradedPrices } from "@/components/graded-prices";
 import { MarketPriceIndex } from "@/components/market-price-index";
@@ -11,8 +11,9 @@ import { TradeRecordsTable } from "@/components/trade-records-table";
 import { getCardDetailsById } from '@/lib/sample-data';
 import type { OhlcData } from '@/lib/types';
 
-export default function CardDetailPage({ params }: { params: { id: string } }) {
-  const cardDetails = getCardDetailsById(params.id);
+export default function CardDetailPage() {
+  const params = useParams();
+  const cardDetails = getCardDetailsById(params.id as string);
 
   const [selectedGrade, setSelectedGrade] = useState<string>('Average');
 
