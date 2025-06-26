@@ -1,11 +1,12 @@
 import Image from "next/image";
+import Link from "next/link";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { CardData } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 interface TrendingCardsProps {
-  cards: Pick<CardData, 'name' | 'set' | 'image' | 'monthlyChange'>[];
+  cards: Pick<CardData, 'id' | 'name' | 'set' | 'image' | 'monthlyChange'>[];
 }
 
 export function TrendingCards({ cards }: TrendingCardsProps) {
@@ -19,7 +20,7 @@ export function TrendingCards({ cards }: TrendingCardsProps) {
           {cards.map((card) => {
             const isPositive = card.monthlyChange >= 0;
             return (
-              <div key={card.name} className="relative group">
+              <Link key={card.id} href={`/cards/${card.id}`} className="relative group">
                 <Image
                   src={card.image}
                   alt={card.name}
@@ -42,7 +43,7 @@ export function TrendingCards({ cards }: TrendingCardsProps) {
                         {isPositive ? '+' : ''}{card.monthlyChange.toFixed(2)}%
                     </p>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>

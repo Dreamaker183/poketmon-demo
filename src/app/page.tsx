@@ -31,16 +31,16 @@ const marketData: MarketData = {
   ]
 };
 
-const trendingCards: Pick<CardData, 'name' | 'set' | 'image' | 'monthlyChange'>[] = [
-    { name: "Charizard", set: "Base Set", image: "https://placehold.co/150x210.png", monthlyChange: 15.00, },
-    { name: "Pikachu", set: "Wizards Black Star Promos", image: "https://placehold.co/150x210.png", monthlyChange: -5.20, },
-    { name: "Mewtwo", set: "Base Set", image: "https://placehold.co/150x210.png", monthlyChange: 8.75, },
+const trendingCards: Pick<CardData, 'id' | 'name' | 'set' | 'image' | 'monthlyChange'>[] = [
+    { id: 'bs-4', name: "Charizard", set: "Base Set", image: "https://placehold.co/150x210.png", monthlyChange: 15.00, },
+    { id: 'wbp-1', name: "Pikachu", set: "Wizards Black Star Promos", image: "https://placehold.co/150x210.png", monthlyChange: -5.20, },
+    { id: 'bs-10', name: "Mewtwo", set: "Base Set", image: "https://placehold.co/150x210.png", monthlyChange: 8.75, },
 ];
 
-const topGainers: Pick<CardData, 'name' | 'set' | 'image' | 'monthlyChange'>[] = [
-    { name: "Blastoise", set: "Base Set", image: "https://placehold.co/100x100.png", monthlyChange: 22.5 },
-    { name: "Venusaur", set: "Base Set", image: "https://placehold.co/100x100.png", monthlyChange: 18.7 },
-    { name: "Gyarados", set: "Base Set", image: "https://placehold.co/100x100.png", monthlyChange: 15.3 },
+const topGainers: Pick<CardData, 'id' | 'name' | 'set' | 'image' | 'monthlyChange'>[] = [
+    { id: 'bs-2', name: "Blastoise", set: "Base Set", image: "https://placehold.co/100x100.png", monthlyChange: 22.5 },
+    { id: 'bs-15', name: "Venusaur", set: "Base Set", image: "https://placehold.co/100x100.png", monthlyChange: 18.7 },
+    { id: 'bs-6', name: "Gyarados", set: "Base Set", image: "https://placehold.co/100x100.png", monthlyChange: 15.3 },
 ];
 
 const generateTrendData = () => Array.from({ length: 12 }, (_, i) => ({ month: `${i+1}`, value: Math.random() * 1000 + 200 }));
