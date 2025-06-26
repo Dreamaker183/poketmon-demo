@@ -31,33 +31,47 @@ export function GradedPrices({ prices, marketMedianPrice, selectedGrade, onSelec
         return priceInfo ? `$${priceInfo.price.toFixed(2)}` : null;
     }
 
-    const allButtons = [
-        { grade: 'Average', displayName: 'Average Price', price: `$${marketMedianPrice.toFixed(2)}` },
-        ...gradesToShow.map(grade => ({ grade, displayName: grade, price: getPriceForGrade(grade) }))
-    ];
+    const averageButton = { grade: 'Average', displayName: 'Average Price', price: `$${marketMedianPrice.toFixed(2)}` };
+    const gradeButtons = gradesToShow.map(grade => ({ grade, displayName: grade, price: getPriceForGrade(grade) }));
 
     return (
         <div>
             <h2 className="text-2xl font-semibold mb-4">Graded Prices</h2>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                {allButtons.map((item) => (
-                    item.price && (
-                        <Button 
-                            key={item.grade}
-                            variant={selectedGrade === item.grade ? 'default' : 'outline'}
-                            className={cn(
-                                "p-2 h-auto flex-col gap-1 shadow-sm w-full", 
-                                selectedGrade === item.grade && 'border-primary ring-2 ring-ring'
-                            )}
-                            onClick={() => onSelectGrade(item.grade)}
-                        >
-                            <span className={cn("text-xs", selectedGrade !== item.grade && 'text-muted-foreground' )}>
-                                {item.displayName}
-                            </span>
-                            <span className="font-bold text-sm">{item.price}</span>
-                        </Button>
-                    )
-                ))}
+            <div className="flex flex-col gap-2">
+                 <Button
+                    key={averageButton.grade}
+                    variant={selectedGrade === averageButton.grade ? 'default' : 'outline'}
+                    className={cn(
+                        "p-2 h-auto flex-col gap-1 shadow-sm w-full",
+                        selectedGrade === averageButton.grade && 'border-primary ring-2 ring-ring'
+                    )}
+                    onClick={() => onSelectGrade(averageButton.grade)}
+                >
+                    <span className={cn("text-xs", selectedGrade !== averageButton.grade && 'text-muted-foreground')}>
+                        {averageButton.displayName}
+                    </span>
+                    <span className="font-bold text-sm">{averageButton.price}</span>
+                </Button>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                    {gradeButtons.map((item) => (
+                        item.price && (
+                            <Button 
+                                key={item.grade}
+                                variant={selectedGrade === item.grade ? 'default' : 'outline'}
+                                className={cn(
+                                    "p-2 h-auto flex-col gap-1 shadow-sm w-full", 
+                                    selectedGrade === item.grade && 'border-primary ring-2 ring-ring'
+                                )}
+                                onClick={() => onSelectGrade(item.grade)}
+                            >
+                                <span className={cn("text-xs", selectedGrade !== item.grade && 'text-muted-foreground' )}>
+                                    {item.displayName}
+                                </span>
+                                <span className="font-bold text-sm">{item.price}</span>
+                            </Button>
+                        )
+                    ))}
+                </div>
             </div>
         </div>
     );
