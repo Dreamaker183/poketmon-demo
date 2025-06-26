@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Flame, Search, Bell } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   const navLinks = ["Browse", "Sets", "Decks", "News", "Tools"];
@@ -39,6 +40,7 @@ export function Header() {
           <Bell className="h-5 w-5" />
           <span className="sr-only">Toggle notifications</span>
         </Button>
+        <ThemeToggle />
       </div>
     </header>
   );
