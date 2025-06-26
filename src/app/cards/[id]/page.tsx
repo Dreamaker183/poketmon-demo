@@ -1,37 +1,29 @@
+
+"use client";
+
+import { useState } from 'react';
 import Image from "next/image";
+import { notFound } from 'next/navigation';
 import { Header } from "@/components/header";
 import { GradedPrices } from "@/components/graded-prices";
 import { MarketPriceIndex } from "@/components/market-price-index";
 import { TradeRecordsTable } from "@/components/trade-records-table";
-import type { CardDetailsData } from "@/lib/types";
-
-const cardDetails: CardDetailsData = {
-  name: "超梦ex",
-  set: "Next Destinies",
-  image: "https://placehold.co/375x525.png",
-  gradedPrices: [
-    { grade: "Ungraded", price: 18.50 },
-    { grade: "Grade 7", price: 30.00 },
-    { grade: "Grade 8", price: 45.00 },
-    { grade: "Grade 9", price: 70.00 },
-    { grade: "Grade 10", price: 150.00 },
-  ],
-  marketPrices: {
-    lowest: 15.00,
-    median: 22.50,
-    highest: 35.75,
-  },
-  tradeRecords: [
-    { id: '1', title: "Mewtwo EX - Evolutions", rarity: "Holo Rare", grade: "PSA 8", price: 30.00, date: "2023-10-22", platform: "eBay" },
-    { id: '2', title: "Mewtwo EX - Holo", rarity: "Ultra Rare", grade: "Ungraded", price: 18.50, date: "2023-10-25", platform: "TCGPlayer" },
-    { id: '3', title: "Mewtwo EX - Next Destinies", rarity: "Ultra Rare", grade: "PSA 9", price: 25.00, date: "2023-10-26", platform: "eBay" },
-    { id: '4', title: "Mewtwo EX Full Art", rarity: "Ultra Rare", grade: "PSA 10", price: 75.00, date: "2023-10-24", platform: "PriceCharting" },
-    { id: '5', title: "Mewtwo EX Promo", rarity: "Rare", grade: "BGS 7.5", price: 12.00, date: "2023-10-23", platform: "eBay" },
-  ],
-};
+import { getCardDetailsById } from '@/lib/sample-data';
+import type { OhlcData } from '@/lib/types';
 
 export default function CardDetailPage({ params }: { params: { id: string } }) {
-  // In a real app, we'd fetch data based on params.id
+  const cardDetails = getCardDetailsById(params.id);
+
+  const [selectedGrade, setSelectedGrade] = useState<string>('Market');
+
+  if (!cardDetails) {
+    notFound();
+  }
+
+  const chartData = selectedGrade === 'Market'
+    ? cardDetails.marketPrices.trendData
+    : cardDetails.gradedPrices.find(p => p.grade === selectedGrade)?.trendData ?? [];
+
   const { name, set, image, gradedPrices, marketPrices, tradeRecords } = cardDetails;
 
   return (
@@ -52,14 +44,19 @@ export default function CardDetailPage({ params }: { params: { id: string } }) {
           <div className="lg:col-span-2 space-y-8">
             <div>
               <h1 className="text-5xl font-bold font-headline">{name}</h1>
-              <p className="text-lg text-muted-foreground mt-2">Pack: {set}</p>
+              <p className="text-lg text-muted-foreground mt-2">Set: {set}</p>
             </div>
-            <GradedPrices prices={gradedPrices} />
+            <GradedPrices
+              prices={gradedPrices}
+              marketMedianPrice={marketPrices.median}
+              onSelectGrade={setSelectedGrade}
+              selectedGrade={selectedGrade}
+            />
           </div>
         </div>
-        
-        <MarketPriceIndex prices={marketPrices} />
-        
+
+        <MarketPriceIndex prices={marketPrices} trendData={chartData} />
+
         <TradeRecordsTable records={tradeRecords} />
       </main>
     </div>

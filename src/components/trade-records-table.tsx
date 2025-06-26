@@ -1,3 +1,4 @@
+
 "use client"
 
 import * as React from "react"
@@ -106,7 +107,7 @@ export function TradeRecordsTable({ records }: TradeRecordsTableProps) {
         </Table>
       </CardContent>
       <CardFooter className="justify-center pt-6">
-        <Button>查看更多市场数据</Button>
+        <Button>View More Market Data</Button>
       </CardFooter>
     </Card>
   )

@@ -1,3 +1,9 @@
+
+export interface OhlcData {
+  date: string;
+  ohlc: [number, number, number, number]; // Open, High, Low, Close
+}
+
 export interface CardData {
   id: string;
   name: string;
@@ -26,12 +32,14 @@ export interface MarketData {
 export interface GradedPrice {
   grade: string;
   price: number;
+  trendData: OhlcData[];
 }
 
 export interface MarketPrices {
   lowest: number;
   median: number;
   highest: number;
+  trendData: OhlcData[];
 }
 
 export interface TradeRecord {
@@ -45,6 +53,7 @@ export interface TradeRecord {
 }
 
 export interface CardDetailsData {
+  id: string;
   name: string;
   image: string;
   set: string;

@@ -1,34 +1,37 @@
-import type { MarketPrices } from "@/lib/types";
-import { Card, CardContent } from "@/components/ui/card";
+
+import type { MarketPrices, OhlcData } from "@/lib/types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { CandlestickChart } from "./candlestick-chart";
 
 interface MarketPriceIndexProps {
   prices: MarketPrices;
+  trendData: OhlcData[];
 }
 
-export function MarketPriceIndex({ prices }: MarketPriceIndexProps) {
+export function MarketPriceIndex({ prices, trendData }: MarketPriceIndexProps) {
   return (
     <Card>
-        <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6">
-                 <h2 className="text-2xl font-semibold">市场价格指数</h2>
+        <CardHeader>
+            <div className="flex flex-col md:flex-row justify-between md:items-center">
+                <CardTitle>Price Trend Chart</CardTitle>
+                <div className="grid grid-cols-3 gap-4 md:gap-8 mt-4 md:mt-0 text-right">
+                    <div>
+                        <p className="text-sm text-muted-foreground">Low</p>
+                        <p className="text-2xl font-bold text-[hsl(var(--chart-2))]">${prices.lowest.toFixed(2)}</p>
+                    </div>
+                    <div>
+                        <p className="text-sm text-muted-foreground">Median</p>
+                        <p className="text-2xl font-bold text-[hsl(var(--chart-1))]">${prices.median.toFixed(2)}</p>
+                    </div>
+                    <div>
+                        <p className="text-sm text-muted-foreground">High</p>
+                        <p className="text-2xl font-bold text-destructive">${prices.highest.toFixed(2)}</p>
+                    </div>
+                 </div>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-6">
-                <div className="text-center">
-                    <p className="text-muted-foreground">最低价</p>
-                    <p className="text-3xl font-bold text-[hsl(var(--chart-2))]">${prices.lowest.toFixed(2)}</p>
-                </div>
-                <div className="text-center">
-                    <p className="text-muted-foreground">中间价</p>
-                    <p className="text-3xl font-bold text-[hsl(var(--chart-1))]">${prices.median.toFixed(2)}</p>
-                </div>
-                <div className="text-center">
-                    <p className="text-muted-foreground">最高价</p>
-                    <p className="text-3xl font-bold text-destructive">${prices.highest.toFixed(2)}</p>
-                </div>
-            </div>
-            <div className="border rounded-lg h-60 flex items-center justify-center bg-secondary/30">
-                <p className="text-muted-foreground">价格走势图</p>
-            </div>
+        </CardHeader>
+        <CardContent>
+          <CandlestickChart data={trendData} />
         </CardContent>
     </Card>
   );
