@@ -22,3 +22,33 @@ export interface MarketData {
     index: number;
   }[];
 }
+
+export interface GradedPrice {
+  grade: string;
+  price: number;
+}
+
+export interface MarketPrices {
+  lowest: number;
+  median: number;
+  highest: number;
+}
+
+export interface TradeRecord {
+  id: string; // for key prop
+  title: string;
+  rarity: string;
+  grade: string;
+  price: number;
+  date: string; // YYYY-MM-DD
+  platform: string;
+}
+
+export interface CardDetailsData {
+  name: string;
+  image: string;
+  set: string;
+  gradedPrices: GradedPrice[];
+  marketPrices: MarketPrices;
+  tradeRecords: TradeRecord[];
+}

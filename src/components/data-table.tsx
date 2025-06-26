@@ -2,6 +2,7 @@
 
 import * as React from "react"
 import Image from "next/image"
+import { useRouter } from "next/navigation"
 import { ArrowUpDown } from "lucide-react"
 
 import {
@@ -34,6 +35,7 @@ const getGradeBadgeClass = (grade: number) => {
 }
 
 export function CardDataTable({ data }: CardDataTableProps) {
+  const router = useRouter();
   const [sortConfig, setSortConfig] = React.useState<{ key: SortKey; direction: 'ascending' | 'descending' } | null>({ key: 'price', direction: 'descending' });
 
   const sortedData = React.useMemo(() => {
@@ -62,7 +64,7 @@ export function CardDataTable({ data }: CardDataTableProps) {
 
   const SortableHeader = ({ sortKey, children }: { sortKey: SortKey, children: React.ReactNode }) => (
     <TableHead>
-      <Button variant="ghost" onClick={() => requestSort(sortKey)} className="-ml-4">
+      <Button variant="ghost" onClick={(e) => { e.stopPropagation(); requestSort(sortKey); }} className="-ml-4">
         {children}
         <ArrowUpDown className="ml-2 h-4 w-4" />
       </Button>
@@ -93,7 +95,7 @@ export function CardDataTable({ data }: CardDataTableProps) {
               {sortedData.map((card) => {
                 const isPositive = card.monthlyChange >= 0;
                 return (
-                  <TableRow key={card.id}>
+                  <TableRow key={card.id} onClick={() => router.push(`/cards/${card.id}`)} className="cursor-pointer">
                     <TableCell>
                       <div className="flex items-center gap-3">
                         <Image
