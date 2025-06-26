@@ -14,13 +14,13 @@ import type { OhlcData } from '@/lib/types';
 export default function CardDetailPage({ params }: { params: { id: string } }) {
   const cardDetails = getCardDetailsById(params.id);
 
-  const [selectedGrade, setSelectedGrade] = useState<string>('Market');
+  const [selectedGrade, setSelectedGrade] = useState<string>('Average');
 
   if (!cardDetails) {
     notFound();
   }
 
-  const chartData = selectedGrade === 'Market'
+  const chartData = selectedGrade === 'Average'
     ? cardDetails.marketPrices.trendData
     : cardDetails.gradedPrices.find(p => p.grade === selectedGrade)?.trendData ?? [];
 
