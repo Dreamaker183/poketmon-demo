@@ -212,6 +212,9 @@ export function CardDataTable({ data }: CardDataTableProps) {
                         />
                         <div>
                           <p className="font-medium">{card.name}</p>
+                          {card.isHolo && (
+                            <p className="text-xs text-muted-foreground">Holo</p>
+                          )}
                           <p className="text-xs text-muted-foreground">{card.number}</p>
                         </div>
                       </div>

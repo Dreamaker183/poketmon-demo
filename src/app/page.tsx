@@ -55,12 +55,12 @@ const generateTrendData = (baseValue: number, fluctuation: number) =>
   }));
 
 const cardTableData: CardData[] = [
-  { id: 'bs-4', name: "Charizard", number: "#4/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Ultra Rare", grade: 9, price: 1200.00, lastTrade: "2024-07-15", monthlyChange: 15.00, trendData: generateTrendData(1000, 200) },
-  { id: 'bs-2', name: "Blastoise", number: "#2/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Ultra Rare", grade: 8, price: 800.00, lastTrade: "2024-07-12", monthlyChange: 22.50, trendData: generateTrendData(700, 100) },
-  { id: 'bs-15', name: "Venusaur", number: "#15/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Rare", grade: 7, price: 600.00, lastTrade: "2024-07-10", monthlyChange: 18.70, trendData: generateTrendData(500, 100) },
+  { id: 'bs-4', name: "Charizard", number: "#4/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Ultra Rare", grade: 9, price: 1200.00, lastTrade: "2024-07-15", monthlyChange: 15.00, trendData: generateTrendData(1000, 200), isHolo: true },
+  { id: 'bs-2', name: "Blastoise", number: "#2/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Ultra Rare", grade: 8, price: 800.00, lastTrade: "2024-07-12", monthlyChange: 22.50, trendData: generateTrendData(700, 100), isHolo: true },
+  { id: 'bs-15', name: "Venusaur", number: "#15/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Rare", grade: 7, price: 600.00, lastTrade: "2024-07-10", monthlyChange: 18.70, trendData: generateTrendData(500, 100), isHolo: true },
   { id: 'wbp-1', name: "Pikachu", number: "#1", image: "https://placehold.co/40x56.png", set: "Wizards Black Star Promos", rarity: "Common", grade: 9, price: 400.00, lastTrade: "2024-06-28", monthlyChange: -5.20, trendData: generateTrendData(450, -50) },
-  { id: 'bs-10', name: "Mewtwo", number: "#10/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Uncommon", grade: 9, price: 200.00, lastTrade: "2024-07-18", monthlyChange: 8.75, trendData: generateTrendData(180, 20) },
-  { id: 'bs-6', name: "Gyarados", number: "#6/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Rare", grade: 10, price: 100.00, lastTrade: "2024-07-05", monthlyChange: 15.30, trendData: generateTrendData(80, 20) },
+  { id: 'bs-10', name: "Mewtwo", number: "#10/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Uncommon", grade: 9, price: 200.00, lastTrade: "2024-07-18", monthlyChange: 8.75, trendData: generateTrendData(180, 20), isHolo: true },
+  { id: 'bs-6', name: "Gyarados", number: "#6/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Rare", grade: 10, price: 100.00, lastTrade: "2024-07-05", monthlyChange: 15.30, trendData: generateTrendData(80, 20), isHolo: true },
 ];
 
 function PageContent() {

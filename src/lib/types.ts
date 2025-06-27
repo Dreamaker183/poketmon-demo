@@ -16,6 +16,7 @@ export interface CardData {
   lastTrade: string; // YYYY-MM-DD
   monthlyChange: number; // percentage
   trendData: { month: string; value: number }[];
+  isHolo?: boolean;
 }
 
 export interface MarketData {
