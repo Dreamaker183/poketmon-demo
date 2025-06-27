@@ -56,7 +56,7 @@ const cardDetails: CardDetailsData[] = [
       trendData: generateOhlcData(22.50, 30),
     },
     tradeRecords: [
-      { id: '1', title: "Mewtwo EX - Evolutions", rarity: "Holo Rare", grade: "PSA 8", price: 30.00, date: "2023-10-22", platform: "eBay" },
+      { id: '1', title: "Mewtwo EX - Evolutions", rarity: "Ultra Rare", grade: "PSA 8", price: 30.00, date: "2023-10-22", platform: "eBay" },
       { id: '2', title: "Mewtwo EX - Holo", rarity: "Ultra Rare", grade: "Ungraded", price: 18.50, date: "2023-10-25", platform: "TCGPlayer" },
       { id: '3', title: "Mewtwo EX - Next Destinies", rarity: "Ultra Rare", grade: "PSA 9", price: 25.00, date: "2023-10-26", platform: "eBay" },
       { id: '4', title: "Mewtwo EX Full Art", rarity: "Ultra Rare", grade: "PSA 10", price: 75.00, date: "2023-10-24", platform: "PriceCharting" },

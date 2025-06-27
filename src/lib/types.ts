@@ -10,7 +10,7 @@ export interface CardData {
   number: string;
   image: string;
   set: string;
-  rarity: 'Holo Rare' | 'Rare';
+  rarity: 'Common' | 'Uncommon' | 'Rare' | 'Ultra Rare';
   grade: number;
   price: number;
   lastTrade: string; // YYYY-MM-DD
