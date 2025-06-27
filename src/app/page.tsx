@@ -1,4 +1,7 @@
 
+"use client";
+
+import { useState, useMemo } from "react";
 import Image from "next/image";
 import { Header } from "@/components/header";
 import { MarketIndexCard } from "@/components/market-index-card";
@@ -45,18 +48,36 @@ const topGainers: Pick<CardData, 'id' | 'name' | 'set' | 'image' | 'monthlyChang
     { id: 'bs-6', name: "Gyarados", set: "Base Set", image: "https://placehold.co/100x100.png", monthlyChange: 15.3 },
 ];
 
-const generateTrendData = () => Array.from({ length: 12 }, (_, i) => ({ month: `${i+1}`, value: Math.random() * 1000 + 200 }));
+const generateTrendData = (baseValue: number, fluctuation: number) => 
+  Array.from({ length: 12 }, (_, i) => ({ 
+    month: `${i + 1}`, 
+    value: baseValue + (Math.sin(i) * fluctuation) + (i * fluctuation / 5) 
+  }));
 
 const cardTableData: CardData[] = [
-  { id: 'bs-4', name: "Charizard", number: "#4/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 9, price: 1200.00, lastTrade: "2024-07-15", monthlyChange: 15.00, trendData: generateTrendData() },
-  { id: 'bs-2', name: "Blastoise", number: "#2/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 8, price: 800.00, lastTrade: "2024-07-12", monthlyChange: 22.50, trendData: generateTrendData() },
-  { id: 'bs-15', name: "Venusaur", number: "#15/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 7, price: 600.00, lastTrade: "2024-07-10", monthlyChange: 18.70, trendData: generateTrendData() },
-  { id: 'wbp-1', name: "Pikachu", number: "#1", image: "https://placehold.co/40x56.png", set: "Wizards Black Star Promos", rarity: "Rare", grade: 9, price: 400.00, lastTrade: "2024-06-28", monthlyChange: -5.20, trendData: generateTrendData() },
-  { id: 'bs-10', name: "Mewtwo", number: "#10/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 9, price: 200.00, lastTrade: "2024-07-18", monthlyChange: 8.75, trendData: generateTrendData() },
-  { id: 'bs-6', name: "Gyarados", number: "#6/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 10, price: 100.00, lastTrade: "2024-07-05", monthlyChange: 15.30, trendData: generateTrendData() },
+  { id: 'bs-4', name: "Charizard", number: "#4/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 9, price: 1200.00, lastTrade: "2024-07-15", monthlyChange: 15.00, trendData: generateTrendData(1000, 200) },
+  { id: 'bs-2', name: "Blastoise", number: "#2/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 8, price: 800.00, lastTrade: "2024-07-12", monthlyChange: 22.50, trendData: generateTrendData(700, 100) },
+  { id: 'bs-15', name: "Venusaur", number: "#15/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 7, price: 600.00, lastTrade: "2024-07-10", monthlyChange: 18.70, trendData: generateTrendData(500, 100) },
+  { id: 'wbp-1', name: "Pikachu", number: "#1", image: "https://placehold.co/40x56.png", set: "Wizards Black Star Promos", rarity: "Rare", grade: 9, price: 400.00, lastTrade: "2024-06-28", monthlyChange: -5.20, trendData: generateTrendData(450, -50) },
+  { id: 'bs-10', name: "Mewtwo", number: "#10/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 9, price: 200.00, lastTrade: "2024-07-18", monthlyChange: 8.75, trendData: generateTrendData(180, 20) },
+  { id: 'bs-6', name: "Gyarados", number: "#6/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 10, price: 100.00, lastTrade: "2024-07-05", monthlyChange: 15.30, trendData: generateTrendData(80, 20) },
 ];
 
 export default function Home() {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const filteredCardData = useMemo(() => {
+    if (!searchTerm) {
+      return cardTableData;
+    }
+    const lowercasedTerm = searchTerm.toLowerCase();
+    return cardTableData.filter(card =>
+      card.name.toLowerCase().includes(lowercasedTerm) ||
+      card.set.toLowerCase().includes(lowercasedTerm) ||
+      card.number.toLowerCase().includes(lowercasedTerm)
+    );
+  }, [searchTerm]);
+
   return (
     <div className="flex min-h-screen w-full flex-col bg-background">
       <Header />
@@ -71,10 +92,10 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <CardSearch />
+          <CardSearch value={searchTerm} onChange={setSearchTerm} />
         </div>
         <div>
-          <CardDataTable data={cardTableData} />
+          <CardDataTable data={filteredCardData} />
         </div>
       </main>
     </div>
