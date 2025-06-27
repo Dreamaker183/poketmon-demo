@@ -212,6 +212,7 @@ export function CardDataTable({ data }: CardDataTableProps) {
                         />
                         <div>
                           <p className="font-medium">{card.name}</p>
+                          {card.rarity === 'Holo Rare' && <p className="text-xs text-muted-foreground">Holo</p>}
                           <p className="text-xs text-muted-foreground">{card.number}</p>
                         </div>
                       </div>
