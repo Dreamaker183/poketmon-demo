@@ -6,11 +6,8 @@ import { ThemeToggle } from "./theme-toggle";
 
 export function Header() {
   const navLinks = [
-    { name: "Browse", href: "#" },
+    { name: "Mainpage", href: "/" },
     { name: "Sets", href: "/sets" },
-    { name: "Decks", href: "#" },
-    { name: "News", href: "#" },
-    { name: "Tools", href: "#" },
   ];
 
   return (
