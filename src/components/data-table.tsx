@@ -232,7 +232,7 @@ export function CardDataTable({ data }: CardDataTableProps) {
                       {isPositive ? '+' : ''}{card.monthlyChange.toFixed(2)}%
                     </TableCell>
                     <TableCell>
-                      <SparklineChart data={card.trendData} color={isPositive ? "hsl(var(--chart-2))]" : "hsl(var(--destructive))"} />
+                      <SparklineChart data={card.trendData} color={isPositive ? "hsl(var(--chart-2))" : "hsl(var(--destructive))"} />
                     </TableCell>
                   </TableRow>
                 )
