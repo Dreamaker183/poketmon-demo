@@ -133,7 +133,7 @@ export function MarketIndexCard({ data, className }: MarketIndexCardProps) {
             </AreaChart>
           </ChartContainer>
         </div>
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+        <div className="mt-6 grid grid-cols-2 gap-4 text-sm">
             {data.regional.map((region) => (
                 <div key={region.name} className="flex flex-col gap-1 p-3 rounded-lg bg-secondary/50">
                     <div className="flex items-center justify-between">

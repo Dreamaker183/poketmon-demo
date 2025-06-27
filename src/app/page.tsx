@@ -1,3 +1,4 @@
+
 import Image from "next/image";
 import { Header } from "@/components/header";
 import { MarketIndexCard } from "@/components/market-index-card";
@@ -25,9 +26,10 @@ const marketData: MarketData = {
     { name: "Jan '25", value: 1876.50 },
   ],
   regional: [
-    { name: "Chinese Market", performance: 1.80, index: 1234.10 },
-    { name: "English Market", performance: -0.50, index: 2010.75 },
-    { name: "Japanese Market", performance: 3.15, index: 1950.22 },
+    { name: "US Card", performance: -0.50, index: 2010.75 },
+    { name: "Japan Card", performance: 3.15, index: 1950.22 },
+    { name: "US Vintage", performance: 4.25, index: 1543.80 },
+    { name: "Japan Vintage", performance: 1.80, index: 1234.10 },
   ]
 };
 
