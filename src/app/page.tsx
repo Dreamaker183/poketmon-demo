@@ -1,8 +1,8 @@
 
 "use client";
 
-import { useState, useMemo } from "react";
-import Image from "next/image";
+import { useMemo, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Header } from "@/components/header";
 import { MarketIndexCard } from "@/components/market-index-card";
 import { TrendingCards } from "@/components/trending-cards";
@@ -63,8 +63,20 @@ const cardTableData: CardData[] = [
   { id: 'bs-6', name: "Gyarados", number: "#6/102", image: "https://placehold.co/40x56.png", set: "Base Set", rarity: "Holo Rare", grade: 10, price: 100.00, lastTrade: "2024-07-05", monthlyChange: 15.30, trendData: generateTrendData(80, 20) },
 ];
 
-export default function Home() {
-  const [searchTerm, setSearchTerm] = useState("");
+function PageContent() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const searchTerm = searchParams.get("q") || "";
+
+  const handleSearchChange = (value: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set("q", value);
+    } else {
+      params.delete("q");
+    }
+    router.push(`?${params.toString()}`, { scroll: false });
+  };
 
   const filteredCardData = useMemo(() => {
     if (!searchTerm) {
@@ -92,12 +104,21 @@ export default function Home() {
           </div>
         </div>
         <div>
-          <CardSearch value={searchTerm} onChange={setSearchTerm} />
+          <CardSearch value={searchTerm} onChange={handleSearchChange} />
         </div>
         <div>
           <CardDataTable data={filteredCardData} />
         </div>
       </main>
     </div>
+  );
+}
+
+
+export default function Home() {
+  return (
+    <Suspense>
+      <PageContent />
+    </Suspense>
   );
 }
