@@ -3,7 +3,7 @@
 import * as React from "react"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
-import { ArrowUpDown } from "lucide-react"
+import { ArrowUpDown, Filter } from "lucide-react"
 
 import {
   Table,
@@ -73,8 +73,12 @@ export function CardDataTable({ data }: CardDataTableProps) {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle>Card Market Data</CardTitle>
+        <Button variant="outline" size="sm">
+          <Filter className="mr-2 h-4 w-4" />
+          Filter
+        </Button>
       </CardHeader>
       <CardContent>
         <div className="rounded-md border">
@@ -127,7 +131,7 @@ export function CardDataTable({ data }: CardDataTableProps) {
                       {isPositive ? '+' : ''}{card.monthlyChange.toFixed(2)}%
                     </TableCell>
                     <TableCell>
-                      <SparklineChart data={card.trendData} color={isPositive ? "hsl(var(--chart-2))" : "hsl(var(--destructive))"} />
+                      <SparklineChart data={card.trendData} color={isPositive ? "hsl(var(--chart-2))]" : "hsl(var(--destructive))"} />
                     </TableCell>
                   </TableRow>
                 )
